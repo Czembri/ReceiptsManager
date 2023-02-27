@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@ngxs/devtools-plugin": "^3.7.6",
+    "@ngxs/logger-plugin": "^3.7.6"
+  }
+}

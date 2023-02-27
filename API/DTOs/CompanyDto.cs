@@ -1,13 +1,14 @@
-namespace API.Entities
+namespace API.DTOs
 {
-    public class UserInfo
+    public class CompanyDto
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string CompanyName { get; set; }
+        public string CompanyType { get; set; }
         public string Address { get; set; } 
         public string City { get; set; } 
         public string PostalCode { get; set; }
-        public AppUser AppUser { get; set; }
+        public string Nip { get; set; }
+
     }
 }

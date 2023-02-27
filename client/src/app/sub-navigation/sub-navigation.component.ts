@@ -6,13 +6,6 @@ import { ISubNavigationOptions } from './sub-nav.model';
   templateUrl: './sub-navigation.component.html',
   styleUrls: ['./sub-navigation.component.css']
 })
-export class SubNavigationComponent implements OnInit {
-
+export class SubNavigationComponent {
   @Input() naviOptions: Array<ISubNavigationOptions> 
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

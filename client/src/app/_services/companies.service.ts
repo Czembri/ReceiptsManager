@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map } from "rxjs";
-import { IUserCompanyInfo } from "../user-companies/models/company.model";
+import { ICompanyInfo } from "../_models/company.model";
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +10,7 @@ export class CompaniesService {
 
     constructor(private http: HttpClient) { }
 
-    getCompanies(username: string) {
-        return this.http.get<Array<IUserCompanyInfo>>(`${this.baseUrl}companies?username=${username}`);
+    getCompanyByNumber(number: string) {
+        return this.http.get<ICompanyInfo>(`${this.baseUrl}companies?nip=${number}`);
     }
 }

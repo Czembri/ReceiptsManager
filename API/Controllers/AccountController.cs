@@ -37,7 +37,7 @@ namespace API.Controllers
 
             var userInfo = new UserInfo 
             {
-                User = user,
+                AppUser = user,
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
                 Address = registerDto.Address,
