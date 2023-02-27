@@ -1,1 +1,1 @@
-# CompanyManager
+# ReceiptsManager
