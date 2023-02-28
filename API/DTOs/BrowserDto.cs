@@ -4,7 +4,7 @@ namespace API.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<ColumnDefinitionsDto> ColumnDefinitions { get; set; }
-        public GridOptionsDto GridOptions { get; set; }
+        public string ColumnDefinitions { get; set; }
+        public string GridOptions { get; set; }
     }
 }

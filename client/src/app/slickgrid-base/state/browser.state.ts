@@ -48,8 +48,8 @@ export class BrowserState {
       tap(browser => {
         ctx.setState({
           browserName: browser.name,
-          columnDefinitions: browser.columnDefinitions,
-          gridOptions: browser.gridOptions
+          columnDefinitions: JSON.parse(browser.columnDefinitions),
+          gridOptions: JSON.parse(browser.gridOptions)
         });
         ctx.dispatch(new GetBrowserInfoSuccess());
       }),
