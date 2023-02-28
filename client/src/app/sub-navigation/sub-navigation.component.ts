@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ISubNavigationOptions } from './sub-nav.model';
 
 @Component({
@@ -7,5 +7,5 @@ import { ISubNavigationOptions } from './sub-nav.model';
   styleUrls: ['./sub-navigation.component.css']
 })
 export class SubNavigationComponent {
-  @Input() naviOptions: Array<ISubNavigationOptions> 
+  @Input() naviOptions: Array<ISubNavigationOptions>
 }

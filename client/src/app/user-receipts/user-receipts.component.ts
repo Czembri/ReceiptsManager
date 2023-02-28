@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { ISubNavigationOptions } from '../sub-navigation/sub-nav.model';
-import { ReceiptsService } from '../_services/receipts.service';
 import { GetUserReceipts } from './state/user-receipts.actions';
 import { UserReceiptsState, UserReceiptsStateModel } from './state/user-receipts.state';
 
@@ -16,13 +15,14 @@ export class UserReceiptsComponent implements OnInit {
 
   @Select(UserReceiptsState.userReceipts)
   public userReceipts$: Observable<UserReceiptsStateModel[]>;
-  subNavigationOptions = new Array<ISubNavigationOptions>();
+
+  public subNavigationOptions = new Array<ISubNavigationOptions>();
 
   constructor(private store: Store) {
     this.subNavigationOptions.push({
       text: 'Add new',
       customLinkCssClasses: 'btn btn-success me-2',
-      url: '/user-companies/user-company',
+      url: '/user-receipts/new',
     },
     {
       text: 'Change selected',

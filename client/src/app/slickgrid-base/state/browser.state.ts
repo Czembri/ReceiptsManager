@@ -46,15 +46,10 @@ export class BrowserState {
   public getBrowserInfo(ctx: StateContext<BrowserStateModel>, action: GetBrowserInfo) {
     return this.browserService.getBrowserInfo(action.browserName).pipe(
       tap(browser => {
-
-        // TO DO objects are not extensible
-        let dcCol = JSON.parse(JSON.stringify(browser.columnDefinitions));
-        // Object.preventExtensions(dcCol);
-
         ctx.setState({
           browserName: browser.name,
-          columnDefinitions: dcCol,
-          gridOptions: JSON.parse(JSON.stringify(browser.gridOptions))
+          columnDefinitions: JSON.parse(browser.columnDefinitions),
+          gridOptions: JSON.parse(browser.gridOptions)
         });
         ctx.dispatch(new GetBrowserInfoSuccess());
       }),
