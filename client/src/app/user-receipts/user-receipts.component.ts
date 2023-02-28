@@ -15,6 +15,7 @@ export class UserReceiptsComponent implements OnInit {
 
   @Select(UserReceiptsState.userReceipts)
   public userReceipts$: Observable<UserReceiptsStateModel[]>;
+
   public subNavigationOptions = new Array<ISubNavigationOptions>();
 
   constructor(private store: Store) {

@@ -2,16 +2,19 @@ import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { catchError, map, switchMap, tap, throwError } from 'rxjs';
 import { BaseState } from 'src/app/_models/base-state.model';
+import { CompanyType, ICompanyInfo } from 'src/app/_models/company.model';
+import { IReceiptPosition, PaymentInfo } from 'src/app/_models/receipt.model';
 import { ReceiptsService } from 'src/app/_services/receipts.service';
 import { GetUserReceipts, GetUserReceiptsFailed, GetUserReceiptsSuccess } from './user-receipts.actions';
 
 export interface UserReceiptsStateModel extends BaseState {
   id: number;
   receiptNumber: string;
-  shopName: string;
+  shop: ICompanyInfo;
   total: string;
+  positions: IReceiptPosition[];
   positionsCount: number;
-  paymentType: string;
+  payment: PaymentInfo;
   created: Date;
 }
 
@@ -20,10 +23,11 @@ export interface UserReceiptsStateModel extends BaseState {
   defaults: [{
     id: null,
     created: null,
-    paymentType: '',
+    payment: null,
+    positions: [],
     positionsCount: 0,
     receiptNumber: '',
-    shopName: '',
+    shop: null,
     total: ''
   }]
 })
@@ -34,6 +38,20 @@ export class UserReceiptsState {
 
   @Selector()
   public static userReceipts(state: UserReceiptsStateModel[]) {
+    return state.map(dto => ({
+      id: dto.id,
+      created: dto.created,
+      paymentType: dto.payment.paymentType,
+      positionsCount: dto.positions.length,
+      positions: dto.positions,
+      receiptNumber: dto.receiptNumber,
+      shopName: dto.shop.companyName,
+      total: dto.total,
+    }))
+  }
+
+  @Selector()
+  public static userReceiptsState(state: UserReceiptsStateModel[]) {
     return state;
   }
 
@@ -44,10 +62,11 @@ export class UserReceiptsState {
         return receipts.map(dto => <UserReceiptsStateModel>{
           id: dto.id,
           created: dto.created,
-          paymentType: dto.paymentInfo.paymentType.toString(),
+          payment: dto.paymentInfo,
           positionsCount: dto.positions.length,
+          positions: dto.positions,
           receiptNumber: dto.receiptNumber,
-          shopName: dto.shop.companyName,
+          shop: dto.shop,
           total: dto.total
         })
       }),

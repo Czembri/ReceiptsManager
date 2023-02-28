@@ -19,8 +19,7 @@ import { BrowserService } from './_services/browser.service';
 import {NgxsModule} from '@ngxs/store';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import { environment } from 'src/environments/environment';
-import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
-import { BrowserState } from './slickgrid-base/state/browser.state';
+import { WebdatarocksPivotModule } from 'ng-webdatarocks';
 
 @NgModule({
   declarations: [
@@ -41,6 +40,7 @@ import { BrowserState } from './slickgrid-base/state/browser.state';
     MaterialsModule,
     ReactiveFormsModule,
     FormsModule,
+    WebdatarocksPivotModule,
     NgxsModule.forRoot([], {
       developmentMode: !environment.production
     }),
