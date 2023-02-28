@@ -1,8 +1,8 @@
 <div class="container">
   <angular-slickgrid
             gridId="grid1"
-            [columnDefinitions]="columnDefinitions$ | async"
-            [gridOptions]="gridOptions$ | async"
+            [columnDefinitions]="colDefsRef$ | async"
+            [gridOptions]="gridOptionsRef$ | async"
             [dataset]="dataSet | async">
   </angular-slickgrid>
 </div>

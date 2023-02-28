@@ -22,7 +22,9 @@ namespace API.Controllers
             var browser = await _context.Browser.Where(x => x.Name == browserName).FirstOrDefaultAsync();
             if (browser == null)
                 return NotFound();
-            var gridOptions = JsonSerializer.Deserialize<GridOptionsDto>(browser.GridOptions);
+            var gridOptions = JsonSerializer.Deserialize<GridOptionsDto>(browser.GridOptions, new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true
+            });
             var columnDefinitions = JsonSerializer.Deserialize<List<ColumnDefinitionsDto>>(browser.ColumnDefinitions, new JsonSerializerOptions {
                 PropertyNameCaseInsensitive = true
             });
