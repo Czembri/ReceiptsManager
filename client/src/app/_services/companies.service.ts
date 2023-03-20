@@ -13,4 +13,8 @@ export class CompaniesService {
     getCompanyByNumber(number: string) {
         return this.http.get<ICompanyInfo>(`${this.baseUrl}companies?nip=${number}`);
     }
+
+    getCompanies() {
+      return this.http.get<ICompanyInfo[]>(`${this.baseUrl}companies`);
+    }
 }

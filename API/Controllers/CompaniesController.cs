@@ -28,11 +28,21 @@ namespace API.Controllers
                 PostalCode = c.PostalCode
             }).FirstOrDefault();
         } 
-    }
 
-    internal class UserCompanyPositionData 
-    {
-        internal int Id { get; set; }
-        internal string Position { get; set; } 
+
+        [HttpGet]
+        public async Task<ActionResult<List<CompanyDto>>> GetCompanies()
+        {
+            var companies = await _context.CompanyInfo.ToListAsync();
+            return companies.Select(c => new CompanyDto {
+                Id = c.Id,
+                Address = c.Address,
+                City = c.City,
+                CompanyName = c.CompanyName, 
+                CompanyType = ((CompanyType)c.CompanyType).ToString(),
+                Nip = c.Nip,
+                PostalCode = c.PostalCode
+            }).ToList();
+        } 
     }
 }

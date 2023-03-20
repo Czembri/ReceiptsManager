@@ -1,11 +1,11 @@
 import { UserReceiptsStateModel } from "./user-receipts.state";
 
 export class GetUserReceipts {
-  static readonly type = '[RECEIPTS] Get user receipts success';
+  static readonly type = '[RECEIPTS] Get user receipts';
 }
 
 export class GetUserReceiptsSuccess {
-  static readonly type = '[RECEIPTS] Get ser receipts failed';
+  static readonly type = '[RECEIPTS] Get user receipts success';
   constructor(public receipts: UserReceiptsStateModel[]) {};
 }
 
