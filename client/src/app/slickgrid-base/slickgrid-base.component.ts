@@ -35,6 +35,7 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
   angularGrid: AngularGridInstance;
   gridObj;
   rowIndexes = new Array<any>;
+  dataViewObj: any;
 
   constructor(
     private store: Store,
@@ -67,6 +68,7 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
   angularGridReady(angularGrid: AngularGridInstance) {
     this.angularGrid = angularGrid;
     this.gridObj = angularGrid.slickGrid;
+    this.dataViewObj = angularGrid.dataView;
   }
 
   onSelectedRowsChanged(e) {

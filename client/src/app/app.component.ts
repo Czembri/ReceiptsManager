@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
-import { BehaviorSubject, combineLatest, Observable, Subject, takeUntil } from 'rxjs';
+import { Actions, ofActionSuccessful, Store } from '@ngxs/store';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { GetUserReceipts } from './user-receipts/state/user-receipts.actions';
-import { UserReceiptsState, UserReceiptsStateModel } from './user-receipts/state/user-receipts.state';
+import { UserReceiptsState } from './user-receipts/state/user-receipts.state';
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
 
@@ -13,9 +13,6 @@ import { AccountService } from './_services/account.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit, OnDestroy {
-
-  // @Select(UserReceiptsState.userReceiptsState)
-  // public userReceipts$: Observable<UserReceiptsStateModel[]>;
 
   private destroyed$ = new Subject<void>();
   public receiptsData$ = new BehaviorSubject<string>('');
@@ -52,5 +49,4 @@ export class AppComponent implements OnInit, OnDestroy {
     const user: User = JSON.parse(localStorage.getItem('user'));
     this.accountService.setCurrentUser(user);
   }
-
 }
