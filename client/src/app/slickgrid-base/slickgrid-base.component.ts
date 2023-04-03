@@ -5,6 +5,7 @@ import { BehaviorSubject, combineLatest, Observable, Subject, takeUntil } from '
 import { defaultGridOptions } from '../shared/constants/slickgrid-defaults';
 import { GetBrowserInfo } from './state/browser.actions';
 import { BrowserState } from './state/browser.state';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-slickgrid-base',
@@ -12,6 +13,7 @@ import { BrowserState } from './state/browser.state';
   styleUrls: ['./slickgrid-base.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class SlickgridBaseComponent implements OnInit, OnDestroy {
   public gridOptionsRef$ = new BehaviorSubject<GridOption>({});
   public colDefsRef$ = new BehaviorSubject<Column[]>([]);
@@ -21,6 +23,9 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
 
   @Input()
   public dataSet: Observable<any[]>;
+
+  @Input()
+  public translationPrefix: string;
 
   @Select(BrowserState.browserData)
   public browserData$: Observable<any[]>;
@@ -39,9 +44,11 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private actions$: Actions) {}
+    private actions$: Actions,
+    private translate: TranslateService) {}
 
   ngOnInit(): void {
+    defaultGridOptions.i18n = this.translate;
     this.gridOptionsRef$.next(JSON.parse(JSON.stringify(defaultGridOptions)));
     this.store.dispatch(new GetBrowserInfo(this.browserName));
     this.actions$.pipe(
@@ -51,7 +58,6 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
         combineLatest(this.columnDefinitions$, this.gridOptions$)
         .pipe(takeUntil(this.destroyed$))
         .subscribe(([colDefs, gridOpts]) => {
-          console.warn(gridOpts)
           this.colDefsRef$.next(JSON.parse(JSON.stringify(colDefs)));
           // if (gridOpts) {
           //   this.gridOptionsRef$.next(JSON.parse(JSON.stringify(gridOpts)));
@@ -59,6 +65,7 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
         })
       })
   }
+
 
   ngOnDestroy(): void {
     this.destroyed$.next();

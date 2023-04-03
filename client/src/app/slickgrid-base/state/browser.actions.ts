@@ -4,9 +4,9 @@ export class GetBrowserInfo {
 }
 
 export class GetBrowserInfoSuccess {
-  static readonly type = '[BROWSER] Get browser info failed';
+  static readonly type = '[BROWSER] Get browser info success';
 }
 
 export class GetBrowserInfoFailed {
-  static readonly type = '[BROWSER] Get browser info success';
+  static readonly type = '[BROWSER] Get browser info failed';
 }

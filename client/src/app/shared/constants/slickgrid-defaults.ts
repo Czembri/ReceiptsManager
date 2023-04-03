@@ -34,4 +34,5 @@ export const defaultGridOptions: GridOption = {
   gridWidth: "100%",
   showCellSelection: true,
   alwaysShowVerticalScroll: false,
+  enableTranslate: true,
 };

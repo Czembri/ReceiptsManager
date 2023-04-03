@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { catchError, map, switchMap, tap, throwError } from 'rxjs';
+import { catchError, map, tap, throwError } from 'rxjs';
 import { BaseState } from 'src/app/_models/base-state.model';
-import { CompanyType, ICompanyInfo } from 'src/app/_models/company.model';
+import { ICompanyInfo } from 'src/app/_models/company.model';
 import { IReceiptPosition, PaymentInfo } from 'src/app/_models/receipt.model';
 import { ReceiptsService } from 'src/app/_services/receipts.service';
 import { GetUserReceipts, GetUserReceiptsFailed, GetUserReceiptsSuccess } from './user-receipts.actions';
+import * as moment from 'moment';
 
 export interface UserReceiptsStateModel extends BaseState {
   id: number;
@@ -15,7 +16,7 @@ export interface UserReceiptsStateModel extends BaseState {
   positions: IReceiptPosition[];
   positionsCount: number;
   payment: PaymentInfo;
-  created: Date;
+  created: string;
 }
 
 @State<UserReceiptsStateModel[]>({
@@ -61,7 +62,7 @@ export class UserReceiptsState {
       map(receipts => {
         return receipts.map(dto => <UserReceiptsStateModel>{
           id: dto.id,
-          created: dto.created,
+          created: (moment(dto.created)).format('DD-MMM-YYYY HH:mm:ss'),
           payment: dto.paymentInfo,
           positionsCount: dto.positions.length,
           positions: dto.positions,

@@ -1,0 +1,21 @@
+{
+	"CLEAR_ALL_FILTERS": "Wyczyść wszystkie filtry",
+	"CLEAR_ALL_SORTING": "Wyczyść sortowanie",
+	"COLUMNS": "Kolumny",
+	"EXPORT_TO_EXCEL": "Eksportuj do excela",
+	"FORCE_FIT_COLUMNS": "Wymuś dopasowanie kolumn",
+	"TOGGLE_FILTER_ROW": "Przełącz wiersz filtra",
+	"TOGGLE_PRE_HEADER_ROW": "Przełącz wiersz przed nagłówkiem",
+	"TOTAL": "Suma",
+	"add": "Dodaj",
+	"created": "Utworzono",
+	"delete": "Usuń",
+	"edit": "Edytuj",
+	"id": "Identyfikator",
+	"openInPopup": "Otwórz w popupie",
+	"paymentType": "Typ płatności",
+	"positionsCount": "Liczba pozycji na paragonie",
+	"receiptNumber": "Numer paragonu",
+	"shopName": "Nazwa sklepu",
+	"userReceipts": "Paragony użytkownika"
+}

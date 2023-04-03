@@ -20,22 +20,22 @@ export class UserReceiptsComponent implements OnInit {
 
   constructor(private store: Store) {
     this.subNavigationOptions.push({
-      text: 'Add new',
+      text: 'ADD',
       customLinkCssClasses: 'btn btn-success me-2',
       url: '/user-receipts/new',
     },
     {
-      text: 'Change selected',
+      text: 'EDIT',
       customLinkCssClasses: 'btn btn-success me-2',
       url: '',
     },
     {
-      text: 'Delete',
+      text: 'DELETE',
       customLinkCssClasses: 'btn btn-danger me-2',
       url: '',
     },
     {
-      text: 'Open view in popup',
+      text: 'OPEN_IN_POPUP',
       customLinkCssClasses: 'btn btn-warning me-2',
       url: '',
     });
