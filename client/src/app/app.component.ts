@@ -40,7 +40,6 @@ export class AppComponent implements OnInit, OnDestroy {
             "dataSource": { "data": ${receiptsStringData} }
           }`)
         );
-        console.warn(reportSettings, 'reportSettings')
         this.receiptsData$.next(reportSettings);
       })
   }

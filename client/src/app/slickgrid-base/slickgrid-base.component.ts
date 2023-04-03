@@ -24,9 +24,6 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
   @Input()
   public dataSet: Observable<any[]>;
 
-  @Input()
-  public translationPrefix: string;
-
   @Select(BrowserState.browserData)
   public browserData$: Observable<any[]>;
 
@@ -47,6 +44,7 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
     private actions$: Actions,
     private translate: TranslateService) {}
 
+
   ngOnInit(): void {
     defaultGridOptions.i18n = this.translate;
     this.gridOptionsRef$.next(JSON.parse(JSON.stringify(defaultGridOptions)));
@@ -55,7 +53,10 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
       takeUntil(this.destroyed$),
       ofActionSuccessful(GetBrowserInfo))
       .subscribe(() => {
-        combineLatest(this.columnDefinitions$, this.gridOptions$)
+        combineLatest(
+          this.columnDefinitions$,
+          this.gridOptions$
+          )
         .pipe(takeUntil(this.destroyed$))
         .subscribe(([colDefs, gridOpts]) => {
           this.colDefsRef$.next(JSON.parse(JSON.stringify(colDefs)));
@@ -65,7 +66,6 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
         })
       })
   }
-
 
   ngOnDestroy(): void {
     this.destroyed$.next();

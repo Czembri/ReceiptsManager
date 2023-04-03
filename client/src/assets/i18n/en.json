@@ -1,21 +1,21 @@
 {
+	"ADD": "Add",
 	"CLEAR_ALL_FILTERS": "Clear all filters",
 	"CLEAR_ALL_SORTING": "Clear sorting",
 	"COLUMNS": "Columns",
+	"DELETE": "Delete",
+	"EDIT": "Edit",
 	"EXPORT_TO_EXCEL": "Export to excel",
 	"FORCE_FIT_COLUMNS": "Force fit columns",
+	"OPEN_IN_POPUP": "Open in popup",
 	"TOGGLE_FILTER_ROW": "Toggle filter row",
 	"TOGGLE_PRE_HEADER_ROW": "Toggle pre header row",
-	"TOTAL": "Total",
-	"add": "Add",
+	"USER_RECEIPTS": "User receipts",
 	"created": "Created",
-	"delete": "Delete",
-	"edit": "Edit",
 	"id": "Identity",
-	"openInPopup": "Open in popup",
 	"paymentType": "Payment type",
 	"positionsCount": "Receipt positions count",
 	"receiptNumber": "Receipt number",
 	"shopName": "Shop name",
-	"userReceipts": "User receipts"
+	"total": "Total"
 }
