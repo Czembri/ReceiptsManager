@@ -5,6 +5,7 @@ import { GetUserReceipts } from './user-receipts/state/user-receipts.actions';
 import { UserReceiptsState } from './user-receipts/state/user-receipts.state';
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private accountService: AccountService,
     private store: Store,
-    private actions$: Actions) {}
+    private actions$: Actions,
+    translate: TranslateService) {
+      translate.setDefaultLang('pl');
+      translate.use('pl');
+    }
 
   ngOnInit(): void {
     this.setCurrentUser();
@@ -35,7 +40,6 @@ export class AppComponent implements OnInit, OnDestroy {
             "dataSource": { "data": ${receiptsStringData} }
           }`)
         );
-        console.warn(reportSettings, 'reportSettings')
         this.receiptsData$.next(reportSettings);
       })
   }

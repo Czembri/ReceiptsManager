@@ -20,6 +20,8 @@ import {NgxsModule} from '@ngxs/store';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import { environment } from 'src/environments/environment';
 import { WebdatarocksPivotModule } from 'ng-webdatarocks';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,13 @@ import { WebdatarocksPivotModule } from 'ng-webdatarocks';
     }),
     // NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
+    TranslateModule.forRoot({
+        loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+        }
+    })
   ],
   entryComponents: [
     NavComponent,
@@ -61,3 +70,7 @@ import { WebdatarocksPivotModule } from 'ng-webdatarocks';
   ],
 })
 export class AppModule { }
+
+export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+  return new TranslateHttpLoader(http);
+}

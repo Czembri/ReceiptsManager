@@ -4,6 +4,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
 import { BrowserModule } from "@angular/platform-browser";
 import { SubNavigationComponent } from "./sub-navigation.component";
+import { TranslateModule } from "@ngx-translate/core";
 
 
 @NgModule({
@@ -16,10 +17,11 @@ import { SubNavigationComponent } from "./sub-navigation.component";
     MatIconModule,
     MatTableModule,
     BrowserModule,
+    TranslateModule,
   ],
   entryComponents: [
     SubNavigationComponent,
-  ], 
+  ],
   exports: [
     SubNavigationComponent
   ]

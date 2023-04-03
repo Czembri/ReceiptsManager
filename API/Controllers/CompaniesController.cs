@@ -14,7 +14,7 @@ namespace API.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("{nip}")]
         public async Task<ActionResult<CompanyDto>> GetCompanyByNumber([FromQuery] string nip)
         {
             var companies = await _context.CompanyInfo.ToListAsync();

@@ -5,6 +5,7 @@ import { catchError, tap, throwError } from 'rxjs';
 import { BaseState } from 'src/app/_models/base-state.model';
 import { BrowserService } from 'src/app/_services/browser.service';
 import { GetBrowserInfo, GetBrowserInfoFailed, GetBrowserInfoSuccess } from './browser.actions';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface BrowserStateModel extends BaseState {
   browserName: string;
@@ -25,7 +26,7 @@ export interface BrowserStateModel extends BaseState {
 
 @Injectable()
 export class BrowserState {
-  constructor(private browserService: BrowserService) {}
+  constructor(private browserService: BrowserService, private translate: TranslateService) {}
 
   @Selector()
   public static browserColumnDefinitions(state: BrowserStateModel) {
@@ -46,9 +47,13 @@ export class BrowserState {
   public getBrowserInfo(ctx: StateContext<BrowserStateModel>, action: GetBrowserInfo) {
     return this.browserService.getBrowserInfo(action.browserName).pipe(
       tap(browser => {
+        const columnSettings = JSON.parse(browser.columnDefinitions) as Column[];
+        columnSettings.forEach(col => {
+          col.name = this.translate.instant(col.field);
+        });
         ctx.setState({
           browserName: browser.name,
-          columnDefinitions: JSON.parse(browser.columnDefinitions),
+          columnDefinitions: columnSettings,
           gridOptions: JSON.parse(browser.gridOptions)
         });
         ctx.dispatch(new GetBrowserInfoSuccess());
