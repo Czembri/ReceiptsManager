@@ -14,7 +14,8 @@ export class NavComponent implements OnInit, OnDestroy {
   public navItemsList = new Array<NavigationItem>;
   private destroyed$ = new Subject<void>();
 
-  constructor(public accountService: AccountService, private translate: TranslateService) { }
+  constructor(public accountService: AccountService,
+    private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.translate.getTranslation(this.translate.currentLang)
@@ -23,6 +24,12 @@ export class NavComponent implements OnInit, OnDestroy {
         class: 'nav-link',
         url: '/user-receipts',
         translation: translation['USER_RECEIPTS']
+      });
+
+      this.navItemsList.push(<NavigationItem>{
+        class: 'nav-link',
+        url: '/contractors',
+        translation: translation['CONTRACTORS']
       });
     });
   }

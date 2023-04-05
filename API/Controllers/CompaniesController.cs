@@ -25,7 +25,8 @@ namespace API.Controllers
                 CompanyName = c.CompanyName, 
                 CompanyType = ((CompanyType)c.CompanyType).ToString(),
                 Nip = c.Nip,
-                PostalCode = c.PostalCode
+                PostalCode = c.PostalCode,
+                Created = c.Created
             }).FirstOrDefault();
         } 
 
@@ -41,8 +42,9 @@ namespace API.Controllers
                 CompanyName = c.CompanyName, 
                 CompanyType = ((CompanyType)c.CompanyType).ToString(),
                 Nip = c.Nip,
-                PostalCode = c.PostalCode
+                PostalCode = c.PostalCode,
+                Created = c.Created
             }).ToList();
-        } 
+        }
     }
 }

@@ -1,1 +1,5 @@
-<p>contractors works!</p>
+<ng-container>
+  <app-sub-navigation [naviOptions]="subNavigationOptions"></app-sub-navigation>
+</ng-container>
+
+<app-slickgrid-base [dataSet]="contractors$" browserName="Contractors"></app-slickgrid-base>

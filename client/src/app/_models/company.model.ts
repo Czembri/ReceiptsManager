@@ -6,6 +6,7 @@ export interface ICompanyInfo {
     city: string;
     postalCode: string;
     nip: string;
+    created: Date;
 }
 
 export enum CompanyType {

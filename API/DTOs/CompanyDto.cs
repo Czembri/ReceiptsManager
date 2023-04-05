@@ -9,6 +9,7 @@ namespace API.DTOs
         public string City { get; set; } 
         public string PostalCode { get; set; }
         public string Nip { get; set; }
+        public DateTime Created { get; set; }
 
     }
 }
