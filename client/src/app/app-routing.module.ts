@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { UserReceiptsComponent } from './user-receipts/user-receipts.component';
 import { AuthGuardService } from './_services/auth-guard.service';
+import { ContractorsComponent } from './contractors/contractors.component';
 
 const routes: Routes = [
   {
@@ -12,8 +13,11 @@ const routes: Routes = [
     path: 'user-receipts', component: UserReceiptsComponent, canActivate: [AuthGuardService]
   },
   {
+    path: 'contractors', component: ContractorsComponent, canActivate: [AuthGuardService]
+  },
+  {
     path: '**', component: HomeComponent, pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({

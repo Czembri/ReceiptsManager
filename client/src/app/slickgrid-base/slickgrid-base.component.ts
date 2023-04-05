@@ -46,7 +46,6 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    defaultGridOptions.i18n = this.translate;
     this.gridOptionsRef$.next(JSON.parse(JSON.stringify(defaultGridOptions)));
     this.store.dispatch(new GetBrowserInfo(this.browserName));
     this.actions$.pipe(
@@ -59,6 +58,7 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
           )
         .pipe(takeUntil(this.destroyed$))
         .subscribe(([colDefs, gridOpts]) => {
+          console.warn(colDefs)
           this.colDefsRef$.next(JSON.parse(JSON.stringify(colDefs)));
           // if (gridOpts) {
           //   this.gridOptionsRef$.next(JSON.parse(JSON.stringify(gridOpts)));

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
-        <a class="navbar-brand" routerLink="/" routerLinkActive="active">Receipts manager</a>
+        <a class="navbar-brand" routerLink="/" routerLinkActive="active">{{ 'PAGE_TITLE' | translate }}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -14,11 +14,11 @@
         </ul>
 
         <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-            <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{ accountService.getCurrentUser() }}</a>
+            <a class="dropdown-toggle text-light" dropdownToggle>{{ 'WELCOME' | translate }} {{ accountService.getCurrentUser() }}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
-                <a class="dropdown-item">Edit profile</a>
+                <a class="dropdown-item">{{ 'EDIT_PROFILE' | translate }}</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" (click)="logout()" href="/">Logout</a>
+                <a class="dropdown-item" (click)="logout()" href="/">{{ 'LOGOUT' | translate }}</a>
             </div>
         </div>
     </div>

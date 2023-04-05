@@ -15,24 +15,39 @@ namespace API.Services
         {
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
-        public string CreateToken(AppUser user)
+        public TokenStruct CreateToken(AppUser user)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
+                new(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
+                new(ClaimTypes.Name, user.UserName),
+                new(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+            var identity = new ClaimsIdentity(claims);
+            var principal = new ClaimsPrincipal(identity);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(claims),
+                Subject = identity,
                 Expires = DateTime.Now.AddDays(7),
-                SigningCredentials = credentials
+                SigningCredentials = credentials,
             };
-
+            
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            return new TokenStruct
+            {
+                Token = tokenHandler.WriteToken(token),
+                Principal = principal
+            };
         }
+    }
+
+    public struct TokenStruct
+    {
+        public string Token { get; set; }
+        public ClaimsPrincipal Principal { get; set; }
     }
 }

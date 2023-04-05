@@ -1,4 +1,5 @@
 using API.Extensions;
+using API.Middleware;
 using Microsoft.OpenApi.Models;
 
 namespace API
@@ -38,10 +39,19 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+            // Configure the HTTP request pipeline.
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseCors(policy => policy
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:4200"));
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

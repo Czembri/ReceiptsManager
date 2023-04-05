@@ -1,15 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { GetContractors } from './state/contractors.actions';
+import { Select, Store } from '@ngxs/store';
+import { ISubNavigationOptions } from '../sub-navigation/sub-nav.model';
+import { ContractorsState, ContractorsStateModel } from './state/contractors.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-contractors',
   templateUrl: './contractors.component.html',
-  styleUrls: ['./contractors.component.css']
+  styleUrls: ['./contractors.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContractorsComponent implements OnInit {
 
-  constructor() { }
+  @Select(ContractorsState.contractors)
+  public contractors$: Observable<ContractorsStateModel[]>;
+  public subNavigationOptions = new Array<ISubNavigationOptions>();
 
-  ngOnInit(): void {
+  constructor(private store: Store) {
+    this.subNavigationOptions.push({
+      text: 'ADD',
+      customLinkCssClasses: 'btn btn-success me-2',
+      url: '/contractors/new',
+    },
+    {
+      text: 'EDIT',
+      customLinkCssClasses: 'btn btn-success me-2',
+      url: '',
+    },
+    {
+      text: 'DELETE',
+      customLinkCssClasses: 'btn btn-danger me-2',
+      url: '',
+    },
+    {
+      text: 'OPEN_IN_POPUP',
+      customLinkCssClasses: 'btn btn-warning me-2',
+      url: '',
+    });
   }
 
+  ngOnInit(): void {
+    this.store.dispatch(new GetContractors());
+  }
 }

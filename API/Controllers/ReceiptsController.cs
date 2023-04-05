@@ -1,9 +1,13 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using API.Company;
 using API.Data;
 using API.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using static API.Mappers.ReceiptPositionsMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Controllers
 {
@@ -11,16 +15,20 @@ namespace API.Controllers
     {
         private readonly ILogger<ReceiptsController> _logger;
         private readonly DataContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
         public ReceiptsController(ILogger<ReceiptsController> logger, DataContext context)
         {
             _logger = logger;
             _context = context;
         }
 
+        // [Authorize]
         [HttpGet]
         public async Task<ActionResult<IList<ReceiptDto>>> GetReceipts()
         {
-            var positions = new List<ReceiptPositionDto>{};
+            // var user = User.FindFirst(ClaimTypes.Name)?.Value;
+            // var userId = User.FindFirst(JwtRegisteredClaimNames.NameId)?.Value;
+            // var positions = new List<ReceiptPositionDto>{};
             //dev - add condition for user auth
             var receipts = await _context.Receipt
                 .Include(e => e.Shop)
