@@ -26,8 +26,8 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IList<ReceiptDto>>> GetReceipts()
         {
-            // var user = User.FindFirst(ClaimTypes.Name)?.Value;
-            // var userId = User.FindFirst(JwtRegisteredClaimNames.NameId)?.Value;
+            var user = User.FindFirst(ClaimTypes.Name)?.Value;
+            var userId = User.FindFirst(JwtRegisteredClaimNames.NameId)?.Value;
             // var positions = new List<ReceiptPositionDto>{};
             //dev - add condition for user auth
             var receipts = await _context.Receipt
