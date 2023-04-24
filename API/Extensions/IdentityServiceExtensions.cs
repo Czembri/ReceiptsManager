@@ -10,18 +10,18 @@ namespace API.Extensions
     {
         public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
         {
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidIssuer = "your-issuer",
+                        ValidAudience = "your-audience",
                     };
                     options.SaveToken = true;
                     options.Events = new JwtBearerEvents
@@ -29,7 +29,7 @@ namespace API.Extensions
                         OnTokenValidated = context =>
                         {
                             var jwtToken = (JwtSecurityToken)context.SecurityToken;
-                            if (jwtToken == null || !jwtToken.Claims.Any())
+                            if (!jwtToken.Claims.Any())
                             {
                                 context.Fail("Unauthorized");
                             }

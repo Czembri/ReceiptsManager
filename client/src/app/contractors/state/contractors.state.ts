@@ -5,6 +5,8 @@ import { BaseState } from 'src/app/_models/base-state.model';
 import { CompanyType } from 'src/app/_models/company.model';
 import { CompaniesService } from 'src/app/_services/companies.service';
 import { GetContractors, GetContractorsFailed, GetContractorsSuccess } from './contractors.actions';
+import * as moment from 'moment';
+import { TranslationsService } from 'src/app/_services/translations.service';
 
 export interface ContractorsStateModel extends BaseState {
   id: number;
@@ -33,7 +35,8 @@ export interface ContractorsStateModel extends BaseState {
 
 @Injectable()
 export class ContractorsState {
-  constructor(private companiesService: CompaniesService) {}
+  constructor(private companiesService: CompaniesService,
+    private translationsService: TranslationsService) {}
 
   @Selector()
   public static contractors(state: ContractorsStateModel[]) {
@@ -45,7 +48,7 @@ export class ContractorsState {
       city: dto.city,
       postalCode: dto.postalCode,
       nip: dto.nip,
-      created: dto.created
+      created: (moment(dto.created)).format('DD-MMM-YYYY HH:mm:ss')
     }))
   }
 
@@ -57,7 +60,7 @@ export class ContractorsState {
           address: dto.address,
           city: dto.city,
           companyName: dto.companyName,
-          companyType: dto.companyType,
+          companyType: this.translationsService.enumTranslation(dto.companyType.toString()),
           id: dto.id,
           nip: dto.nip,
           postalCode: dto.postalCode,

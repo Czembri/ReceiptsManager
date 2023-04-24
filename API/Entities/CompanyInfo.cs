@@ -12,5 +12,6 @@ namespace API.Entities
         public string PostalCode { get; set; }
         public string Nip { get; set; }
         public DateTime Created { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

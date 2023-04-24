@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Actions, ofActionSuccessful, Select, Store } from '@ngxs/store';
+import { Actions, ofActionCompleted, ofActionSuccessful, Select, Store } from '@ngxs/store';
 import { AngularGridInstance, Column, GridOption } from 'angular-slickgrid';
 import { BehaviorSubject, combineLatest, Observable, Subject, takeUntil } from 'rxjs';
 import { defaultGridOptions } from '../shared/constants/slickgrid-defaults';
 import { GetBrowserInfo } from './state/browser.actions';
 import { BrowserState } from './state/browser.state';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-slickgrid-base',
@@ -16,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 export class SlickgridBaseComponent implements OnInit, OnDestroy {
   public gridOptionsRef$ = new BehaviorSubject<GridOption>({});
-  public colDefsRef$ = new BehaviorSubject<Column[]>([]);
+  public colDefsRef$ = new BehaviorSubject<Column<any>[]>([]);
 
   @Input()
   public browserName: string;
@@ -41,29 +40,24 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private actions$: Actions,
-    private translate: TranslateService) {}
+    private actions$: Actions) {
+      this.gridOptionsRef$.next(JSON.parse(JSON.stringify(defaultGridOptions)))
+    }
 
 
   ngOnInit(): void {
-    this.gridOptionsRef$.next(JSON.parse(JSON.stringify(defaultGridOptions)));
     this.store.dispatch(new GetBrowserInfo(this.browserName));
     this.actions$.pipe(
       takeUntil(this.destroyed$),
-      ofActionSuccessful(GetBrowserInfo))
+      ofActionCompleted(GetBrowserInfo))
       .subscribe(() => {
-        combineLatest(
-          this.columnDefinitions$,
-          this.gridOptions$
-          )
-        .pipe(takeUntil(this.destroyed$))
-        .subscribe(([colDefs, gridOpts]) => {
-          console.warn(colDefs)
-          this.colDefsRef$.next(JSON.parse(JSON.stringify(colDefs)));
+          const colDef = this.store.selectSnapshot(
+            BrowserState.browserColumnDefinitions);
+          this.colDefsRef$.next(
+            JSON.parse(JSON.stringify(colDef)));
           // if (gridOpts) {
           //   this.gridOptionsRef$.next(JSON.parse(JSON.stringify(gridOpts)));
           // } //prod setup every grid
-        })
       })
   }
 
@@ -87,6 +81,7 @@ export class SlickgridBaseComponent implements OnInit, OnDestroy {
     // when clicking on any cell, we will make it the new selected row
     // however, we don't want to interfere with multiple row selection checkbox which is on 1st column cell
     if (args.cell !== 0) {
+      console.warn(args.row)
       this.gridObj.setSelectedRows([args.row]);
     }
   }

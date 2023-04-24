@@ -45,13 +45,20 @@ export class AccountService {
     localStorage.removeItem('token');
     this.currentUserSource.next(null);
   }
-  
+
   setCurrentUser(user: User) {
     this.currentUserSource.next(user);
   }
 
-  getCurrentUser() {
+  getCurrentUserName() {
     const user: string = JSON.parse(localStorage.getItem('user'));
     return user ?? '';
+  }
+
+  getCurrentUser(): User {
+    return {
+      userName: JSON.parse(localStorage.getItem('user')),
+      token: JSON.parse(localStorage.getItem('token'))
+    } as User;
   }
 }

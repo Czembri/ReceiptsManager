@@ -8,13 +8,13 @@
         <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="accountService.currentUser$ | async">
           <ng-container *ngFor="let item of navItemsList">
             <li class="nav-item">
-              <a class={{item.class}} aria-current="page" routerLink={{item.url}} routerLinkActive="active">{{item.translation}}</a>
+              <a [routerLink]="[]" (click)="goTo(item.url)" class={{item.class}} aria-current="page" routerLinkActive="active">{{item.translation}}</a>
             </li>
           </ng-container>
         </ul>
 
         <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-            <a class="dropdown-toggle text-light" dropdownToggle>{{ 'WELCOME' | translate }} {{ accountService.getCurrentUser() }}</a>
+            <a class="dropdown-toggle text-light" dropdownToggle>{{ 'WELCOME' | translate }} {{ accountService.getCurrentUserName() }}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
                 <a class="dropdown-item">{{ 'EDIT_PROFILE' | translate }}</a>
                 <div class="dropdown-divider"></div>
