@@ -14,7 +14,7 @@
         </ul>
 
         <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-            <a class="dropdown-toggle text-light" dropdownToggle>{{ 'WELCOME' | translate }} {{ accountService.getCurrentUser() }}</a>
+            <a class="dropdown-toggle text-light" dropdownToggle>{{ 'WELCOME' | translate }} {{ accountService.getCurrentUserName() }}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
                 <a class="dropdown-item">{{ 'EDIT_PROFILE' | translate }}</a>
                 <div class="dropdown-divider"></div>

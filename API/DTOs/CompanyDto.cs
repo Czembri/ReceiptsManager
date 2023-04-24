@@ -1,3 +1,5 @@
+using API.Entities;
+
 namespace API.DTOs
 {
     public class CompanyDto
@@ -10,6 +12,6 @@ namespace API.DTOs
         public string PostalCode { get; set; }
         public string Nip { get; set; }
         public DateTime Created { get; set; }
-
+        public UserDto User { get; set; }
     }
 }

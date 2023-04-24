@@ -26,6 +26,7 @@ import { ContractorsModule } from './contractors/contractors.module';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { NgxsRootModule } from '@ngxs/store/src/modules/ngxs-root.module';
+import { TokenInterceptorService } from './interceptors/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,11 @@ import { NgxsRootModule } from '@ngxs/store/src/modules/ngxs-root.module';
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
     BrowserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
     // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     // {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     // {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true},

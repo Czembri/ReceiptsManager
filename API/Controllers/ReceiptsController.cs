@@ -15,7 +15,6 @@ namespace API.Controllers
     {
         private readonly ILogger<ReceiptsController> _logger;
         private readonly DataContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
         public ReceiptsController(ILogger<ReceiptsController> logger, DataContext context)
         {
             _logger = logger;
@@ -26,16 +25,16 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IList<ReceiptDto>>> GetReceipts()
         {
-            var user = User.FindFirst(ClaimTypes.Name)?.Value;
             var userId = User.FindFirst(JwtRegisteredClaimNames.NameId)?.Value;
-            // var positions = new List<ReceiptPositionDto>{};
-            //dev - add condition for user auth
+            if (userId == null)
+                return NotFound("User not found");
             var receipts = await _context.Receipt
                 .Include(e => e.Shop)
                 .Include(e => e.ReceiptPositions)
                 .ThenInclude(e => e.VatRate)
                 .Include(e => e.PaymentInfo)
                 .Include(e => e.AppUser)
+                .Where(x => x.AppUser.Id == int.Parse(userId))
                 .ToListAsync();
             return receipts.Select(x => new ReceiptDto {
                 Id = x.Id,
@@ -46,7 +45,7 @@ namespace API.Controllers
                     Address = x.Shop.Address,
                     City = x.Shop.City,
                     CompanyName = x.Shop.CompanyName,
-                    CompanyType = ((CompanyType)x.Shop.CompanyType).ToString(),
+                    CompanyType = x.Shop.CompanyType.ToString(),
                     Nip = x.Shop.Nip,
                     PostalCode = x.Shop.PostalCode
                 },
